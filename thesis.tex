@@ -14,7 +14,12 @@
 
     % mandatory titlepage + table of content
     \maketitle
-    \tableofcontents
+
+    \include{abstract.tex}
+    \newpage
+
+    \tableofcontents    
+    \pagenumbering{arabic}
 
     % each chapter write in separate file for readability
 

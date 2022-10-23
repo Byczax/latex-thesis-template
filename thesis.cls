@@ -6,24 +6,13 @@
 %%%* ==== SPECIAL OPTIONS ====
 
 \newif\if@engineer
+\newif\if@master
 \newif\if@pl
+\newif\if@en
 
 \@engineertrue
 \@plfalse
 
-%%%* ==== SPECIAL OPTION EXECTUION ====
-
-% things for engieering thesis
-\if@engineer
-
-\fi
-
-
-% things for polish language
-\if@pl
-\RequirePackage{polski} % for polish headers
-
-\fi
 
 %%% * ========= PACKAGES ==========
 
@@ -51,15 +40,7 @@ sorting=ynt
 \RequirePackage{lipsum} % dummy text
 \RequirePackage{listing}
 
-
-%%%* --------------- PARAMETERS --------------- *%%%
-
-%? change font size in line nr. 3
-% \renewcommand{\rmdefault}{lmr}  %? Times New Roman??
-
-\def\marginsize{2.5cm}
-\def\addleftmargin{0.5cm}
-
+%%%* --------------- VARIABLES --------------- *%%%
 \def\author#1{\gdef\@author{#1}}
 \gdef\@author{\@latex@error{No \noexpand\author given}\@ehc}
 
@@ -78,6 +59,48 @@ sorting=ynt
 
 \def\keywords#1{\gdef\@keywords{#1}}
 \def\@keywords{\@latex@error{No \noexpand\keywords given}\@ehc}
+
+% STATIC VARIABLES
+\if@en
+\def\@university{Wrocław University of Science and Technology}
+\def\@faculty{Faculty of Information and Communication Technology}
+
+\def\@tfieldofstudy{Field of study}
+\def\@tspecialisation{Speciality}
+\def\@tsupervisor{Supervisor}
+\def\@tconsultant{Consultant}
+\def\@tkeywords{Keywords}
+% \fi
+\else
+% \if@pl
+\def\@university{Politechnika Wrocławska}
+\def\@faculty{Wydział Informatyki i Telekomunikacji}
+%
+\def\@tfieldofstudy{Kierunek}
+\def\@tspecialisation{Specjalność}
+\def\@tsupervisor{Opiekun pracy}
+\def\@tconsultant{Konsultant}
+\def\@tkeywords{Słowa kluczowe}
+% \def\dlistoflistings{Spis listingów}
+% \def\dappendix{Dodatki}
+% \renewcommand\figurename{Rys.}
+\fi
+%%%* ==== SPECIAL OPTION EXECTUION ====
+
+
+% things for polish language
+\if@pl
+\RequirePackage{polski} % for polish headers
+
+\fi
+
+%%%* --------------- PARAMETERS --------------- *%%%
+
+%? change font size in line nr. 3
+% \renewcommand{\rmdefault}{lmr}  %? Times New Roman??
+
+\def\marginsize{2.5cm}
+\def\addleftmargin{0.5cm}
 
 %%%* --------------- METADATA SETUP --------------- *%%%
 
@@ -167,84 +190,72 @@ sorting=ynt
 \newcommand\textbox[1]{%
     \parbox{.49\textwidth}{#1}%
   }
-\renewcommand\maketitle{
 
-    
-    \begin{titlepage}
-        \pagestyle{empty}
-        % \fontfamily{garamond}\selectfont
-        \begin{center}
-            \textbf{
-                \begingroup
-                \fontsize{20pt}{12pt}\selectfont
-                Politechnika Wrocławska\\
-                \endgroup
-                \begingroup
-                \fontsize{16pt}{12pt}\selectfont
-                Wydział Informatyki i Telekomunikacji
-                \endgroup
-            }
-    
-            \smallskip
-            \hrule
-            \vspace{0.5cm}
-        \end{center}
-        \begin{justify}
-            \begingroup
-            \fontsize{14pt}{12pt}\selectfont
-            %\noindent\hbox to 0.5\textwidth
-            % \noindent {Kierunek:} \textbox\@fieldofstudy \hfill%{Kierunek:}Informatyka Techniczna (ITE)
-            % \noindent\hbox to 0.5\textwidth{Specjalność:} \@fieldspeciality \hfill%{Specjalność:}Grafika i systemy multimedialne (IGM)
-            \noindent \textbox{Kierunek:\hfill}\@fieldofstudy
-            \vspace*{1mm}
 
-            \noindent \textbox{Specjalność:\hfill}\@fieldspeciality
-    
-            \endgroup
-        \end{justify}
-        \begin{spacing}{2}
-            \begin{center}
-                \begingroup
-                \fontsize{26pt}{12pt}\selectfont
-                PRACA DYPLOMOWA\\
-                INŻYNIERSKA\\
-                \endgroup
-                \vspace{1.5cm}
-                \begingroup
-                \fontsize{18pt}{12pt}\selectfont
-                Tytuł pracy\\
-                \@title\\
-                \endgroup
-                \begingroup
-                \fontsize{16pt}{12pt}\selectfont
-                Imię i nazwisko dyplomata\\
-                \@author\\
-                \endgroup
-                \begingroup
-                \fontsize{14pt}{12pt}\selectfont
-                Opiekun pracy\\
-                \@supervisor\\
-                \endgroup
-            \end{center}
-        \end{spacing}
+\renewcommand\maketitle{%
+	\pagenumbering{gobble}%
+	\thispagestyle{empty}%
+	\hypersetup{pageanchor=false}%
+    {
+    % \fontfamily{mdugm}\selectfont - why it's removing special formating?
+	\begin{center}
+		\textbf{\LARGE\@university}
+		
+		\vspace{.2cm}\textbf{\Large \@faculty}
+		
+		\vspace{-.3cm}\rule{\textwidth}{.1pt}
+	\end{center}
 
-        \vspace{\fill}
+    \vspace{.3cm}
+	\begin{flushleft}
+		\begin{minipage}[t]{\textwidth/2}
+			\begin{tabular}{ l l }
+				\@tfieldofstudy
+            : & \textbf{\@fieldofstudy} \\
+				\ifdef{\@fieldspeciality}{\@tspecialisation: & \textbf{\@fieldspeciality}}{}
+			\end{tabular}
+		\end{minipage}
+	\end{flushleft}
 	
-        \begin{flushleft}
-            \normalsize Słowa kluczowe: \@keywords
-        \end{flushleft}
-        
-        \vspace{.2cm}
-        \begin{center}   
-            \rule{\textwidth}{.2pt}
-            
-            \vspace{-.2cm}\large \MakeUppercase{Wrocław} \the\year
-        \end{center}
-    \end{titlepage}
+	\vspace{2cm}
+	\begin{center}
+		{\Huge	\if@en%
+					\MakeUppercase{\if@engineer Engineering \fi \if@master Master \fi thesis }%
+					\fi%
+                \if@pl%
+					\MakeUppercase{Praca dyplomowa}
+					\vspace{.4em}\MakeUppercase{\if@engineer{inżynierska}\fi\if@master{magisterska}\fi}%
+      				\fi}
+      			
+		\vspace{2cm plus .3fill}
 
-    \hbox{}
-    \thispagestyle{empty}
-    \cleardoublepage
+        {\huge \textbf{\@title}}\\
+		
+		\vspace{1.5cm}{\huge\@author}
+		
+		\vspace{3cm}{\large \@tsupervisor}
+		
+		\vspace{.2cm}{\large\bfseries\@supervisor}
+	\end{center}
+	\vspace{\fill}
+	
+	\begin{flushleft}
+		\normalsize \@tkeywords: \@keywords
+	\end{flushleft}
+	
+	\vspace{.2cm}
+	\begin{center}   
+		\rule{\textwidth}{.2pt}
+		
+		\vspace{-.2cm}\large \MakeUppercase{Wrocław} \the\year
+	\end{center}
+    }
+\clearpage
+% \if@druk%
+\hbox{}
+\cleardoublepage
+% \fi
+\restoregeometry
 }
 
 \renewcommand\listoflistings{
