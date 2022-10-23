@@ -1,0 +1,41 @@
+%!TEX encoding = UTF-8 Unicode 
+%!TEX program = xelatex
+
+\documentclass[engineer, pl]{thesis}
+
+\author{Some student} 
+\title{My "work"}
+\supervisor{My supervisor UwU}
+\fieldofstudy{Informatyka Techniczna (ITE)}
+\fieldspeciality{Grafika i systemy multimedialne (IGM)}
+\keywords{kluczowe, słowa, kluczowe}
+
+\begin{document}
+
+    % mandatory titlepage + table of content
+    \maketitle
+    \tableofcontents
+
+    % each chapter write in separate file for readability
+
+    \include{chapter1.tex}
+    \include{chapter2.tex}
+
+    % summary if you need it
+    \include{summary.tex}
+
+    % in template there is listings of figures, pictures, etc. on the end of the file.
+    \listoffigures
+    \newpage
+    \listoflistings
+    \newpage
+    \listoftables
+    \newpage
+
+    % Entry will not be visible in bibliography if you don't cite it in the document
+    % Also write every entry that you want include in bib.bib file
+    \printbibliography[
+        heading=bibintoc,
+        title={Bibliografia}
+    ]
+\end{document}
