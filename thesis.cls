@@ -35,7 +35,7 @@ sorting=ynt
 \RequirePackage{ragged2e} % justify text
 \RequirePackage{setspace} % vertical space environments
 \RequirePackage{xcolor} % Colorful formatting
-\RequirePackage{tocbibind} % Add list of figures and other to table of contents
+\RequirePackage[nottoc]{tocbibind} % Add list of figures and other to table of contents
 \RequirePackage{tgtermes} % Font
 \RequirePackage{lipsum} % dummy text
 \RequirePackage{listing}
@@ -180,8 +180,8 @@ sorting=ynt
 \renewcommand{\figurename}{Tab.}
 
 % name code listing
-\def\codelisting{Fragmenty kodu}
-\renewcommand{\lstlistlistingname}{\codelisting}
+\def\@codelisting{Fragmenty kodu}
+\renewcommand{\lstlistlistingname}{\@codelisting}
 
 %%* Where is bibliography file? *%%
 \addbibresource{bib.bib}
@@ -260,9 +260,10 @@ sorting=ynt
 
 \renewcommand\listoflistings{
     \phantomsection
-    \addcontentsline{toc}{section}{\codelisting}
+    \addcontentsline{toc}{section}{\@codelisting}
     \lstlistoflistings
 }
+
 
 
 
