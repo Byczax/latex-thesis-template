@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{thesis}
 
-\LoadClass[12pt]{article}
+\LoadClass[12pt]{mwrep}
 
 %%%* ==== SPECIAL OPTIONS ====
 
@@ -185,6 +185,28 @@ sorting=ynt
 
 %%* Where is bibliography file? *%%
 \addbibresource{bib.bib}
+
+%%%* --------------- SPECIAL FORMATTING --------------- *%%%
+
+%% chapter -- pierwszy stopień
+\SetSectionFormatting[breakbefore,wholewidth]{chapter}
+        {56\p@}
+        {\FormatBlockHeading{\Large\bfseries\MakeUppercase}}
+        {24\p@}
+%% section -- drugi stopień
+\SetSectionFormatting{section}
+        {24\p@\@plus5\p@\@minus2\p@}
+        {\FormatHangHeading{\normalsize\bfseries\MakeUppercase}}
+        {10\p@\@plus3\p@}
+%% subsection -- ewentualny trzeci poziom
+\SetSectionFormatting{subsection}
+        {16\p@\@plus4\p@\@minus1\p@}
+        {\FormatHangHeading{\small\rmfamily\bfseries}}
+        {6\p@\@plus2\p@}
+\SetSectionFormatting{subsubsection}
+		{16\p@\@plus4\p@\@minus1\p@}
+		{\FormatHangHeading{\footnotesize\rmfamily\bfseries}}
+		{6\p@\@plus2\p@}
 
 %%% * ========= TITLE PAGE ==========
 \newcommand\textbox[1]{%
